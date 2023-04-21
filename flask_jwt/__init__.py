@@ -174,7 +174,7 @@ def jwt_required(realm=None):
         @wraps(fn)
         def decorator(*args, **kwargs):
             _jwt_required(realm or current_app.config['JWT_DEFAULT_REALM'])
-            return fn(*args, **kwargs)
+            return current_app.ensure_sync(fn)(*args, **kwargs)
         return decorator
     return wrapper
 
